@@ -65,16 +65,16 @@ function AdminPanel() {
             className="border p-2 mb-2 bg-white shadow rounded"
           >
             {coupon.code} - {coupon.claimed ? "Claimed" : "Available"}
-            <button
+            { coupon.claimed ? <button
               onClick={() => unclaimCoupon(coupon.code)}
               className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700"
             >
               Unclaim Coupon
-            </button>
+            </button> : <span></span>}
           </li>
         ))}
       </ul>
-      <h2 className="text-2xl font-semibold mt-6 mb-4">User Claim History</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-4">User Claim History <button onClick={fetchClaimHistory}>refresh</button>  </h2>
       <ul className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md">
         {claimHistory.length > 0 ? (
           claimHistory.map((entry, index) => (
