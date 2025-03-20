@@ -10,12 +10,12 @@ function AdminPanel() {
   }, []);
 
   const fetchCoupons = async () => {
-    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/coupons`);
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/coupons`);
     setCoupons(response.data);
   };
 
   const addCoupon = async () => {
-    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/coupons/add`, { code: newCoupon });
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/v1/coupons/add`, { code: newCoupon });
     setNewCoupon('');
     fetchCoupons();
   };
