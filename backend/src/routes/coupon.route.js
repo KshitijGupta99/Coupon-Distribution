@@ -13,14 +13,15 @@ router.post('/claim', rateLimiter, async (req, res) => {
     res.json({ message: 'Coupon claimed successfully!', coupon: coupon.code });
 });
 
-router.put('/toggle', async (req, res) => {
+router.put('/unclaim', async (req, res) => {
     const { code } = req.body;
     if (!code) return res.status(400).json({ message: "Coupon code is required" });
 
     const coupon = await Coupon.findOne({code});
     if (!coupon) return res.status(404).json({ message: "Coupon not found" });
 
-    coupon.claimed = !coupon.claimed;
+    coupon.claimed = false;
+    coupon.claimedBy = null;
     await coupon.save();
     res.json({ message: "Coupon updated successfully" });
 });
@@ -32,6 +33,11 @@ router.post('/add', async (req, res) => {
     const newCoupon = new Coupon({ code, claimed: false });
     await newCoupon.save();
     res.json({ message: "Coupon added successfully" });
+});
+
+router.get('/history', async (req, res) => {
+    const claimedCoupons = await Coupon.find({ claimed: true }, 'code claimedBy');
+    res.json(claimedCoupons);
 });
 
 router.get('/', async (req, res) => {
