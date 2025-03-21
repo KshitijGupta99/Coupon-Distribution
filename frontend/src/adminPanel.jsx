@@ -61,17 +61,21 @@ function AdminPanel() {
       <ul className="w-full max-w-md">
         {coupons.map((coupon) => (
           <li
-            key={coupon._id}
-            className="border p-2 mb-2 bg-white shadow rounded"
-          >
-            {coupon.code} - {coupon.claimed ? "Claimed" : "Available"}
-            { coupon.claimed ? <button
+          key={coupon._id}
+          className="border flex justify-between items-center p-2 mb-2 bg-white shadow rounded"
+        >
+          <span>{coupon.code} - {coupon.claimed ? "Claimed" : "Available"}</span>
+        
+          {coupon.claimed && (
+            <button
               onClick={() => unclaimCoupon(coupon.code)}
               className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700"
             >
               Unclaim Coupon
-            </button> : <span></span>}
-          </li>
+            </button>
+          )}
+        </li>
+        
         ))}
       </ul>
       <h2 className="text-2xl font-semibold mt-6 mb-4">User Claim History <button onClick={fetchClaimHistory}>refresh</button>  </h2>

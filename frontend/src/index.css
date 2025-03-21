@@ -7,3 +7,10 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
 }
+
+button{\
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
